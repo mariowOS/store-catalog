@@ -1052,6 +1052,14 @@ body.power-saver .qs-subpanel-header {
   </div>
 
   <script>
+    const renderIcon = (iconStr) => {
+      if (!iconStr) return '<span class="menu-icon-symbol">📦</span>';
+      if (iconStr.includes('/') || iconStr.includes('.')) {
+        return `<img src="${iconStr}" class="menu-icon" style="border-radius: 4px; object-fit: cover;">`;
+      }
+      return `<span class="menu-icon-symbol">${iconStr}</span>`;
+    };
+
     let popupCounter = 0;
     const statusBar = document.querySelector('.status-bar');
     const STATUSBAR_H = 56;
@@ -1649,7 +1657,7 @@ function cyclePowerMode() {
           btn.onclick = () => openPopup(app.appId);
           btn.innerHTML = `
             <div class="dropdown-item" data-popup="${app.appId}">
-              <span class="menu-icon-symbol">${app.icon}</span> <span>${app.title}</span>
+              ${renderIcon(app.icon)} <span>${app.title}</span>
             </div>
           `;
           dropdown.appendChild(btn);
@@ -1794,7 +1802,7 @@ function cyclePowerMode() {
             btn.onclick = () => openPopup(app.appId);
             btn.innerHTML = `
               <div class="dropdown-item" data-popup="${app.appId}">
-                <span class="menu-icon-symbol">${app.icon}</span> <span>${app.title}</span>
+                ${renderIcon(app.icon)} <span>${app.title}</span>
               </div>
             `;
             dropdown.appendChild(btn);
